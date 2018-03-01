@@ -1,6 +1,6 @@
 <template>
   <ul id="mailsList">
-    <li v-for="mail in mails"
+    <li v-for="mail in value"
         class="mail"
         :key="mail.id"
         >
@@ -22,59 +22,12 @@
 <script>
 import df from 'dateformat'
 
-var apiURL = 'http://localhost:9000/rest/v1/mail'
-
 export default {
   name: 'MailsList',
-  data () {
-    return {
-      mails: [
-        {
-          'author': 'Johann Sell',
-          'subject': 'Testmail',
-          'receiver': ['Dennis Kleber', 'Jens Ottmann', 'Sofia die Erste', 'Pocahontas'],
-          'meta': {
-            'sendingAddress': 'no-reply@vivaconagua.org',
-            'created': 1365799066000,
-            'send': 1365887493000
-          }
-        },
-        {
-          'author': 'Dennis Kleber',
-          'subject': 'Testmail - so ein Quatsch',
-          'receiver': ['Jens Ottmann', 'Sofia die Erste', 'Pocahontas'],
-          'meta': {
-            'created': 1365897493000,
-            'send': 1365987493000
-          }
-        },
-        {
-          'author': 'Johann Sell',
-          'subject': 'Das hätte ich nicht geschrieben!',
-          'receiver': ['Dennis Kleber'],
-          'meta': {
-            'created': 1365997493000
-          }
-        }
-      ]
-    }
-  },
-
-  created: function () {
-    this.fetchData()
-  },
+  props: ['value'],
   methods: {
     dateToString: function (long) {
       return df(new Date(long), 'dd.mm.yyyy, HH:MM "Uhr"')
-    },
-    fetchData: function () {
-      var xhr = new XMLHttpRequest()
-      var self = this
-      xhr.open('GET', apiURL)
-      xhr.onload = function () {
-        self.mails = JSON.parse(xhr.responseText)
-      }
-      xhr.send()
     }
   }
 }
@@ -90,7 +43,8 @@ export default {
   list-style-type: none;
   height: 100%;
   text-align: left;
-  padding: 0 10em;
+  /*padding: 0 10em;*/
+  padding: 0;
 }
 
 .mail {

@@ -1,6 +1,6 @@
 <template>
   <div id="editor">
-    <textarea :value="input" @input="update"></textarea>
+    <textarea ref="mdRaw" v-bind:value="this.value" v-on:input="update"></textarea>
     <div v-html="compiledMarkdown"></div>
   </div>
 </template>
@@ -11,19 +11,28 @@ import _ from 'lodash'
 
 export default {
   name: 'MarkDownEditor',
-  data () {
-    return {
-      input: '# hello'
-    }
-  },
+  props: ['value'],
   computed: {
     compiledMarkdown: function () {
-      return marked(this.input, { sanitize: true })
+      var rawMD = ''
+      if (this.value) {
+        rawMD = this.value
+      }
+      return marked(rawMD, { sanitize: true })
     }
   },
   methods: {
     update: _.debounce(function (e) {
-      this.input = e.target.value
+      // this.input = e.target.value
+      var readInput = e.target.value
+
+      // If the value was not already normalized,
+      // manually override it to conform
+      if (readInput !== this.value) {
+        this.$refs.mdRaw.value = readInput
+      }
+      // Emit the number value through the input event
+      this.$emit('input', readInput)
     }, 300)
   }
 }
