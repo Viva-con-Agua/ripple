@@ -1,19 +1,45 @@
 <template>
-  <form id="mailsEditor">
-    <input type="hidden" name="author"  v-model="author" />
-    <input type="text" placeholder="Subject" name="subject" v-model="subject" />
-    <MarkDownEditor v-model="mailBody" />
-    <input type="text" placeholder="Receiver" name="receiver" v-model="receiver" />
-    <label>
-      <input type="checkbox" name="sendingAddress[]" value="no-reply@vivaconagua.org" v-model="sendingAddress" />
-      no-reply@vivaconagua.org
-    </label>
-    <button @click="send">Send</button>
+  <form id="mailsEditor" class="form-vertical" role="form">
+    <fieldset>
+      <legend>Email schreiben</legend>
+      <input type="hidden" name="author"  v-model="author" />
+      <div class="form-group" id="sendingAddress_field">
+        <div class="checkbox">
+          <label for="no-reply">
+            <input type="checkbox" id="no-reply" name="sendingAddress[]" value="no-reply@vivaconagua.org" v-model="sendingAddress" />
+            no-reply@vivaconagua.org
+          </label>
+        </div>
+      </div>
+      <div class="form-group" id="receiver_field">
+        <label class="control-label" for="receiver">Receiver</label>
+        <input type="text" id="receiver" name="receiver" v-model="receiver" class="form-control" autofocus="true" />
+      </div>
+      <div class="form-group" id="subject_field">
+        <label class="control-label" for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" v-model="subject" class="form-control" autofocus="true" />
+      </div>
+      <!--<MarkDownEditor v-model="mailBody" />-->
+      <quill-editor ref="bodyEditor"
+        v-model="mailBody"
+        :config="editorOption">
+      </quill-editor>
+      <div class="form-group ">
+        <button type="submit" @click="send" class="btn btn-primary">Send</button>
+      </div>
+    </fieldset>
   </form>
 </template>
 
 <script>
-import MarkDownEditor from '@/components/MarkDownEditor'
+// import MarkDownEditor from '@/components/MarkDownEditor'
+import { quillEditor } from 'vue-quill-editor'
+
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+var defaultBody = '<h1>Deine Mail ans Netzwerk...</h1>'
 
 export default {
   name: 'MailsEditor',
@@ -21,12 +47,13 @@ export default {
     return {
       author: 'Johann',
       subject: '',
-      mailBody: '# hello',
+      mailBody: defaultBody,
       receiver: '',
-      sendingAddress: []
+      sendingAddress: [],
+      editorOption: {}
     }
   },
-  components: { MarkDownEditor },
+  components: { quillEditor },
   methods: {
     bloobify: function () {
       var bloobModel = {
@@ -45,7 +72,7 @@ export default {
     },
     cleanUp: function () {
       this.subject = ''
-      this.mailBody = '# hello'
+      this.mailBody = defaultBody
       this.receiver = ''
       this.sendingAddress = []
     },
@@ -66,5 +93,12 @@ export default {
     align-items: stretch;
     align-content: stretch;
     flex-direction: column;
+    /*background-color: #2196f3;*/
+    /*padding: 1.5em;*/
+    /*border-radius: 25px;*/
+  }
+  .quill-editor {
+    margin-bottom:1em;
+    background-color: white;
   }
 </style>

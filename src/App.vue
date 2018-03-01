@@ -31,9 +31,10 @@ html, body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /*text-align: center;*/
   color: #2c3e50;
-  padding-top: 60px;
+  /*padding-top: 60px;*/
+  margin: 0 5em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

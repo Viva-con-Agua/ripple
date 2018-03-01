@@ -1,22 +1,25 @@
 <template>
-  <ul id="mailsList">
-    <li v-for="mail in value"
-        class="mail"
-        :key="mail.id"
-        >
-      <div class="indicator">
-        <img v-if="mail.meta.hasOwnProperty('send') && mail.meta.send <= (new Date()).getTime()" src="/img/send.png" alt="Mail sent" />
-        <img v-if="!mail.meta.hasOwnProperty('send') || mail.meta.send > (new Date()).getTime()" src="/img/not-send.png" alt="Mail not sent" />
-      </div>
-      <div class="author">
-        <span class="name">{{ mail.author }}</span><br />
-        <span class="meta">Created: {{ dateToString(mail.meta.created) }}</span><br />
-        <span class="meta" v-if="mail.meta.hasOwnProperty('sendingAddress')">Senders email: {{ mail.meta.sendingAddress }}</span>
-      </div>
-      <div class="subject">{{ mail.subject }}</div>
-      <div class="receiver">{{ mail.receiver.join(', ') }}</div>
-    </li>
-  </ul>
+  <div id="list">
+    <h2>Vergangene Mails</h2>
+    <ul id="mailsList">
+      <li v-for="mail in value"
+          class="mail"
+          :key="mail.id"
+          >
+        <div class="indicator">
+          <img v-if="mail.meta.hasOwnProperty('send') && mail.meta.send <= (new Date()).getTime()" src="/img/send.png" alt="Mail sent" />
+          <img v-if="!mail.meta.hasOwnProperty('send') || mail.meta.send > (new Date()).getTime()" src="/img/not-send.png" alt="Mail not sent" />
+        </div>
+        <div class="author">
+          <span class="name">{{ mail.author }}</span><br />
+          <span class="meta">Created: {{ dateToString(mail.meta.created) }}</span><br />
+          <span class="meta" v-if="mail.meta.hasOwnProperty('sendingAddress')">Senders email: {{ mail.meta.sendingAddress }}</span>
+        </div>
+        <div class="subject">{{ mail.subject }}</div>
+        <div class="receiver">{{ mail.receiver.join(', ') }}</div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -56,7 +59,9 @@ export default {
   padding: 1.5em;
   background-color: #2196f3;
   color: #FFFFFF;
-  height: 2.5em;
+  height: 6.5em;
+  border-radius: 5px;
+  margin: 0 0 1em 0;
 }
 .mail:hover {
   background-color: #e7e7e7;
