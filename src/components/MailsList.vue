@@ -7,8 +7,8 @@
           :key="mail.id"
           >
         <div class="indicator">
-          <img v-if="mail.meta.hasOwnProperty('send') && mail.meta.send <= (new Date()).getTime()" src="/img/send.png" alt="Mail sent" />
-          <img v-if="!mail.meta.hasOwnProperty('send') || mail.meta.send > (new Date()).getTime()" src="/img/not-send.png" alt="Mail not sent" />
+          <img v-if="mail.meta.hasOwnProperty('sent') && mail.meta.sent <= (new Date()).getTime()" src="/img/sent.png" alt="Mail sent" />
+          <img v-if="!mail.meta.hasOwnProperty('sent') || mail.meta.sent > (new Date()).getTime()" src="/img/not-sent.png" alt="Mail not sent" />
         </div>
         <div class="author">
           <span class="name">{{ mail.author }}</span><br />

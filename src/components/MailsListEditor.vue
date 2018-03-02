@@ -10,7 +10,7 @@ import MailEditor from '@/components/MailEditor'
 import MailsList from '@/components/MailsList'
 
 var initURL = 'http://localhost:9000/rest/v1/mail'
-var wsURL = 'ws:/localhost:9000/ws/v1/mail/create'
+var wsURL = 'ws:/localhost:9000/ws/v1/mail/createSend'
 
 export default {
   name: 'MailsListEditor',
@@ -19,6 +19,8 @@ export default {
     var socket = new WebSocket(wsURL)
     var that = this
     socket.onmessage = function (e) {
+      console.log(event.data)
+      console.log(JSON.parse(event.data))
       that.append(JSON.parse(event.data))
     }
     return {
