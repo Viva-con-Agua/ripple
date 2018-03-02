@@ -34,12 +34,19 @@
 <script>
 // import MarkDownEditor from '@/components/MarkDownEditor'
 import { quillEditor } from 'vue-quill-editor'
+import sanitizeHtml from 'sanitize-html'
 
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
+// Todo: has to be configured for our purpose and should be in config file
 var defaultBody = '<h1>Deine Mail ans Netzwerk...</h1>'
+var allowedHTMLTags = ['span', 'img']
+var allowedHTMLAttr = {
+  '*': ['style'],
+  'img': ['src']
+}
 
 export default {
   name: 'MailsEditor',
@@ -59,7 +66,10 @@ export default {
       var bloobModel = {
         author: this.author,
         subject: this.subject,
-        body: this.mailBody,
+        body: sanitizeHtml(this.mailBody, {
+          allowedTags: sanitizeHtml.defaults.allowedTags.concat(allowedHTMLTags),
+          allowedAttributes: allowedHTMLAttr
+        }),
         receiver: this.receiver.replace(/ /g, '').split(','),
         meta: {
           created: (new Date()).getTime()
