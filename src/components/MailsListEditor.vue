@@ -47,7 +47,6 @@ export default {
       var self = this
       xhr.open('GET', initURL)
       xhr.setRequestHeader('Accept', 'application/json; charset=utf-8')
-      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
       xhr.onload = function () {
         self.mails = (JSON.parse(xhr.responseText)).sort(function (a, b) { return b.meta.created - a.meta.created })
       }
