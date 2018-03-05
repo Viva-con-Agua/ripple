@@ -19,8 +19,6 @@ export default {
     var socket = new WebSocket(wsURL)
     var that = this
     socket.onmessage = function (e) {
-      console.log(event.data)
-      console.log(JSON.parse(event.data))
       that.append(JSON.parse(event.data))
     }
     return {
@@ -48,6 +46,8 @@ export default {
       var xhr = new XMLHttpRequest()
       var self = this
       xhr.open('GET', initURL)
+      xhr.setRequestHeader('Accept', 'application/json; charset=utf-8')
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
       xhr.onload = function () {
         self.mails = (JSON.parse(xhr.responseText)).sort(function (a, b) { return b.meta.created - a.meta.created })
       }
