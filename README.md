@@ -28,3 +28,10 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+## ChangeLog
+
+### Version 0.2.0 (2018-05-08)
+* [[F] #3 - List Mails](https://github.com/Viva-con-Agua/ripple/issues/3)
+* [[F] #2 - Create Mails](https://github.com/Viva-con-Agua/ripple/issues/2)
