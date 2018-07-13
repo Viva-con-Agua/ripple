@@ -9,8 +9,8 @@
 import MailEditor from '@/components/MailEditor'
 import MailsList from '@/components/MailsList'
 
-var initURL = 'http://localhost:9000/rest/v1/mail'
-var wsURL = 'ws:/localhost:9000/ws/v1/mail/createSend'
+var initURL = 'http://localhost/bloob/rest/v1/mail'
+var wsURL = 'ws://localhost/bloob/ws/v1/mail/createSend'
 
 export default {
   name: 'MailsListEditor',

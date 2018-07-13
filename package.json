@@ -1,6 +1,6 @@
 {
   "name": "ripple",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Implements a front-end for the Pool² microservice Bloob. That way it allows Viv",
   "author": "Johann Sell <sell@informatik.hu-berlin.de>",
   "private": true,
@@ -14,6 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "dateformat": "^3.0.3",
     "sanitize-html": "^1.18.2",
     "vue": "^2.5.2",

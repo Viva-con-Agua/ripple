@@ -40,6 +40,8 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
+import axios from 'axios'
+
 // Todo: has to be configured for our purpose and should be in config file
 var defaultBody = '<h1>Deine Mail ans Netzwerk...</h1>'
 var allowedHTMLTags = ['span', 'img']
@@ -48,11 +50,14 @@ var allowedHTMLAttr = {
   'img': ['src']
 }
 
+var initAuthorURL = 'http://localhost/bloob/identity'
+var loginPage = 'http://localhost/'
+
 export default {
   name: 'MailsEditor',
   data () {
     return {
-      author: 'Johann',
+      author: '',
       subject: '',
       mailBody: defaultBody,
       receiver: '',
@@ -61,6 +66,12 @@ export default {
     }
   },
   components: { quillEditor },
+  created: function () {
+    this.init()
+  },
+  beforeDestroy: function () {
+    this.author = ''
+  },
   methods: {
     bloobify: function () {
       var bloobModel = {
@@ -91,6 +102,17 @@ export default {
       var bloobModel = this.bloobify()
       this.cleanUp()
       this.$emit('created', bloobModel)
+    },
+    init: function () {
+      axios.get(initAuthorURL)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          this.author = response.data.uuid
+        })
+        .catch(e => {
+          // this.errors.push(e)
+          window.location.href = loginPage
+        })
     }
   }
 }
